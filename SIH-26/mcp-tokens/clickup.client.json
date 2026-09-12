@@ -1,0 +1,15 @@
+{
+  "response_types": [
+    "code"
+  ],
+  "redirect_uris": [
+    "http://127.0.0.1:27890/callback"
+  ],
+  "token_endpoint_auth_method": "none",
+  "grant_types": [
+    "authorization_code"
+  ],
+  "client_id": "mcp-client-YI6zkJCokDpto7s-",
+  "client_id_issued_at": 1788940185,
+  "issuer": "https://mcp.clickup.com"
+}

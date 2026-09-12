@@ -1,0 +1,54 @@
+# =========================
+# Secrets
+# =========================
+.env
+.env.*
+!.env.example
+hermes-user-api-key.txt
+
+# =========================
+# Python
+# =========================
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# =========================
+# Runtime / generated data
+# =========================
+.qdrant-initialized
+storage/
+*.db
+*.db-shm
+*.db-wal
+*.log
+
+# =========================
+# Backups
+# =========================
+*.bak
+*.bak_*
+
+# =========================
+# Models
+# =========================
+models/
+
+# =========================
+# Generated binaries
+# =========================
+bin/*.dll
+bin/*.exe
+bin/qdrant-dist/
+bin/qdrant.zip
+
+# Keep llama-swap if this is the intentionally distributed binary
+!bin/llama-swap
+!bin/LICENSE-LLVM-OpenMP
+
+# =========================
+# Certificates
+# =========================
+certs/

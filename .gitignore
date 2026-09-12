@@ -1,0 +1,38 @@
+# Models and Engine Binaries (Heavy files)
+*.gguf
+*.bin
+*.exe
+*.zip
+
+# Secrets and Configs
+.env
+
+# Virtual Environments
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Runtime state and databases
+*.db
+*.db-shm
+*.db-wal
+*.log
+cache/
+logs/
+sessions/
+terminal-sessions/
+images/
+pastes/
+
+# Generated Outputs
+MyVault/
+Obsidian Vault/
+output/
+extracted_PINN.txt
+generate_artifacts.py
+
+# Editor files
+.vscode/
+.idea/

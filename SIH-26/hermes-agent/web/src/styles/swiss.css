@@ -1,0 +1,974 @@
+/**
+ * swiss.css — INDRA Swiss International / ITS Design System
+ *
+ * All rules are wrapped in [data-theme-name="swiss"] so they ONLY
+ * activate when the Swiss preset is selected. Zero cost for all other
+ * themes — specificity is identical to the .neu-* and .ind-* classes.
+ *
+ * Design DNA (non-negotiable):
+ *   Colors:   #FFFFFF bg, #000000 fg, #F2F2F2 muted, #FF3000 accent (functional only)
+ *   Radius:   0px everywhere — strictly rectangular
+ *   Borders:  2–3px black, structural (defines edges, not decoration)
+ *   Shadows:  none (no box-shadow, no drop-shadow)
+ *   Fonts:    Inter — 400 body, 500 ui, 700 bold, 900 display
+ *   Text:     UPPERCASE for headings/nav/labels; normal case for data/body
+ *   Depth:    flat — pattern textures at 2–4% opacity only (swiss-*-bg classes)
+ *   Red:      FUNCTIONAL ONLY — active/selected, errors, critical CTAs
+ *             NEVER decorative fill
+ *
+ * Typography scale for dashboard (NOT marketing scale):
+ *   Page titles:    text-2xl to text-3xl, font-black, uppercase, tracking-tight
+ *   Section heads:  text-lg to text-xl, font-bold, uppercase, tracking-wide
+ *   Body/data:      text-sm to text-base, font-medium, normal case
+ *   Labels/badges:  text-xs to text-sm, uppercase, tracking-wide, font-bold
+ *
+ * Strategy: override via CSS cascade, never change JSX.
+ *   The App.tsx shell uses hardcoded neumorphic class names (bg-[#E0E5EC],
+ *   neu-raised, rounded-2xl, text-[#3D4852], etc.). Rather than touching
+ *   JSX files, we target those selectors here under *   to override color, border-radius, and box-shadow to Swiss values.
+ */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 1. PAGE SURFACE                                                             */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+[data-theme-name="swiss"],
+[data-theme-name="default"],
+[data-theme-name="default-large"] {
+  background-color: var(--swiss-bg, #FFFFFF);
+  color: var(--swiss-fg, #000000);
+
+  /* Reset all neumorphic radius tokens so inherited values don't leak */
+  --neu-radius-card:  0px;
+  --neu-radius-base:  0px;
+  --neu-radius-inner: 0px;
+
+  /* Swiss radius token */
+  --radius: 0px;
+  --theme-radius: 0px;
+
+  /* Remap neumorphic text tokens to Swiss equivalents so any component
+     that uses var(--neu-text-primary) etc. inherits correct Swiss colors */
+  --neu-text-primary:  #000000;
+  --neu-text-muted:    #555555;
+  --neu-text-tertiary: #777777;
+  --neu-text-accent:   #FF3000;
+
+  /* Background/midground DS tokens → Swiss values */
+  --background-base: #FFFFFF;
+  --midground-base:  #000000;
+}
+
+/* ── Override the hardcoded neumorphic background on the root wrapper ── */
+/* App.tsx: className="... bg-[#E0E5EC] text-[#3D4852] ..."              */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .bg-\[\#E0E5EC\] {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-\[\#3D4852\] {
+  color: var(--swiss-fg, #000000) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-\[\#6B7280\] {
+  color: #555555 !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-\[\#8B95A5\] {
+  color: #777777 !important;
+}
+
+/* Swiss Red replaces INDRA Teal for active/accent icons */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-\[\#00E0C6\] {
+  color: var(--swiss-accent, #FF3000) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 2. NEUMORPHIC SHADOW OVERRIDES → FLAT SWISS                                */
+/*    All .neu-* classes produce neumorphic shadows. In the Swiss theme        */
+/*    we replace every shadow with a flat structural border instead.           */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-raised,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-raised-hover,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-raised-sm,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-raised-xs {
+  box-shadow: none !important;
+  border: 2px solid var(--swiss-border, #000000);
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-inset,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-inset-deep,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-inset-sm,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-inset-xs {
+  box-shadow: none !important;
+  border: 2px solid var(--swiss-accent, #FF3000); /* inset = active selection = red */
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-accent-raised,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-accent-pressed {
+  box-shadow: none !important;
+  background: var(--swiss-accent, #FF3000) !important;
+  color: #FFFFFF !important;
+  border: 2px solid var(--swiss-accent, #FF3000);
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-icon-well {
+  box-shadow: none !important;
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+  border: 1px solid var(--swiss-border, #000000);
+}
+
+/* ── Transition override — no shadow transitions in flat Swiss ─────── */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-transition,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-transition-fast {
+  transition: background-color 120ms ease-out, color 120ms ease-out,
+              border-color 120ms ease-out !important;
+}
+
+/* ── Focus ring override — 2px Swiss Red outset ring ────────────────── */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-focus:focus-visible,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-focus-inset:focus-visible {
+  outline: 2px solid var(--swiss-accent, #FF3000) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 3. BORDER-RADIUS HARD RESET                                                 */
+/*    Belt-and-suspenders: any Tailwind rounded-* that snuck in through       */
+/*    JSX gets zeroed out in the Swiss scope.                                  */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Target specific Tailwind classes used in App.tsx */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded-r-3xl,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded-2xl,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded-xl,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded-lg,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded-md,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded-sm,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded-full {
+  border-radius: 0px !important;
+}
+
+/* Exempt the PTY terminal subtree — xterm.js controls its own canvas   */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-chat-active="true"] *,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-chat-active="true"] {
+  border-radius: unset !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 4. SIDEBAR SHELL                                                             */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Sidebar aside — white surface, thick 2px right border instead of shadow */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) #app-sidebar {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+  box-shadow: none !important;
+  border-right: 2px solid var(--swiss-border, #000000) !important;
+  border-radius: 0px !important;
+}
+
+/* Sidebar header bar — thick 3px bottom border as section divider */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) #app-sidebar > div:first-child,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .border-b.border-\[rgb\(163_177_198\/0\.3\)\] {
+  border-bottom: 3px solid var(--swiss-border, #000000) !important;
+  border-color: var(--swiss-border, #000000) !important;
+}
+
+/* Brand wordmark in sidebar — Swiss uppercase, tight tracking */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .font-display.font-extrabold {
+  font-weight: 900 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: uppercase !important;
+  color: var(--swiss-fg, #000000) !important;
+}
+
+/* Brand descriptor tag line */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-\[0\.5rem\].tracking-\[0\.14em\] {
+  color: #555555 !important;
+  letter-spacing: 0.15em !important;
+}
+
+/* Sidebar nav area border */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) nav.border-t,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .border-t.border-\[rgb\(163_177_198\/0\.3\)\] {
+  border-top: 1px solid var(--swiss-border, #000000) !important;
+  border-color: var(--swiss-border, #000000) !important;
+}
+
+/* Plugin section divider */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .border-t.border-current\/10 {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ── Nav link items ────────────────────────────────────────────────── */
+/* App.tsx SidebarNavLink: rounded-2xl neu-inset-sm vs hover:neu-raised-sm */
+/* Swiss: flat active = muted bg + 3px red left border, inactive = white  */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/nav {
+  border-radius: 0px !important;
+  /* Extend to full sidebar width with structural left padding */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 1.25rem !important;
+}
+
+/* Active nav item: Swiss Red left border accent */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/nav.neu-inset-sm {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+  border: none !important;
+  border-left: 3px solid var(--swiss-accent, #FF3000) !important;
+  box-shadow: none !important;
+  color: var(--swiss-fg, #000000) !important;
+}
+
+/* Inactive nav item hover: subtle muted tint */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/nav:hover {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+  box-shadow: none !important;
+}
+
+/* Nav item text — uppercase bold, functional density */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/nav span.truncate {
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  font-size: 0.7rem !important;
+}
+
+/* Active nav icon: Swiss Red */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/nav .text-\[\#00E0C6\] {
+  color: var(--swiss-accent, #FF3000) !important;
+}
+
+/* Inactive nav icon */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/nav .text-\[\#8B95A5\] {
+  color: #888888 !important;
+}
+
+/* ── System action buttons in sidebar ────────────────────────────── */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/action {
+  border-radius: 0px !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/action:hover {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+}
+
+/* The semi-transparent hover fill span — make it flat black/5 */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/action span.bg-midground {
+  background-color: var(--swiss-fg, #000000) !important;
+}
+
+/* Running indicator left stripe */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .group\/action span.bg-midground.w-px {
+  background-color: var(--swiss-accent, #FF3000) !important;
+  width: 3px !important;
+}
+
+/* ── Sidebar tooltip — flat white card, 2px black border ─────────── */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) span.bg-\[\#E0E5EC\].neu-raised-sm {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+  border: 2px solid var(--swiss-border, #000000) !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
+  color: var(--swiss-fg, #000000) !important;
+  font-weight: 700 !important;
+}
+
+/* ── Sidebar bottom bar (theme/lang switchers) ────────────────────── */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .border-t.border-current\/20 {
+  border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ── Mobile header ────────────────────────────────────────────────── */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) header.neu-raised {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid var(--swiss-border, #000000) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 5. MAIN CONTENT AREA                                                        */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* data-neu="true" content wrapper — white canvas */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-neu="true"] {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+  color: var(--swiss-fg, #000000) !important;
+}
+
+/* Override hardcoded bg-[#E0E5EC] on the main content wrapper */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .bg-\[\#E0E5EC\].pt-2,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .bg-\[\#E0E5EC\].relative {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 6. INPUT / TEXTAREA / SELECT — Flat Swiss Treatment                        */
+/*    Remove neumorphic inset shadows; apply 2px black border instead.        */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) textarea,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) select {
+  background:    var(--swiss-bg, #FFFFFF) !important;
+  border:        2px solid var(--swiss-border, #000000) !important;
+  border-radius: 0px !important;
+  box-shadow:    none !important;
+  color:         var(--swiss-fg, #000000) !important;
+  transition:    border-color 150ms ease-out, outline 150ms ease-out;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):focus,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) textarea:focus,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) select:focus {
+  border-color: var(--swiss-accent, #FF3000) !important;
+  box-shadow:   none !important;
+  outline:      none;
+}
+
+/* Restore terminal inputs */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-chat-active="true"] input,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-chat-active="true"] textarea {
+  background: #0B1B33 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  color: #ffffff !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 7. FOCUS-VISIBLE — Global 2px Swiss Red Ring                               */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) *:focus-visible {
+  outline:        2px solid var(--swiss-accent, #FF3000) !important;
+  outline-offset: 2px !important;
+  box-shadow:     none !important;
+}
+
+/* Exempt the terminal pane */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-chat-active="true"] *:focus-visible {
+  outline: none !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 8. BUTTONS — Full Inversion on Hover, No Shadows                           */
+/*    @nous-research/ui Button component. Variant classes rendered at runtime. */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* All buttons: remove shadow, enforce 0 radius */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="button"] {
+  box-shadow:    none !important;
+  border-radius: 0px !important;
+  transition:    background-color 120ms ease-out, color 120ms ease-out,
+                 border-color 120ms ease-out !important;
+}
+
+/* Default / secondary button style: black border + text, white bg;
+   hover: full black inversion */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button:not([disabled]):not([data-variant="destructive"]):not([data-variant="ghost"]):hover {
+  background-color: var(--swiss-fg, #000000) !important;
+  color:            var(--swiss-bg, #FFFFFF) !important;
+}
+
+/* Ghost buttons: no border, no bg; hover = muted tint */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button[data-variant="ghost"]:hover,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button.ghost:hover {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+  box-shadow:       none !important;
+}
+
+/* Destructive buttons: Swiss Red bg, white text */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button[data-variant="destructive"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .neu-accent-raised {
+  background-color: var(--swiss-accent, #FF3000) !important;
+  color:            #FFFFFF !important;
+  border:           2px solid var(--swiss-accent, #FF3000) !important;
+  box-shadow:       none !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button[data-variant="destructive"]:hover {
+  background-color: var(--swiss-accent-dark, #CC2600) !important;
+  border-color:     var(--swiss-accent-dark, #CC2600) !important;
+}
+
+/* Primary / default CTA: black bg by default in Swiss (INDRA calls it accent=teal) */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button[data-variant="default"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button[type="submit"]:not([data-variant]) {
+  background-color: var(--swiss-fg, #000000) !important;
+  color:            var(--swiss-bg, #FFFFFF) !important;
+  border:           2px solid var(--swiss-fg, #000000) !important;
+  box-shadow:       none !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button[data-variant="default"]:hover {
+  background-color: var(--swiss-accent, #FF3000) !important;
+  border-color:     var(--swiss-accent, #FF3000) !important;
+}
+
+/* Icon buttons — open, no bg */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button[data-size="icon"] {
+  background-color: transparent !important;
+  border:           none !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) button[data-size="icon"]:hover {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 9. CARDS / PANELS                                                            */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Any element using the card color token: white bg, 2px black border */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .bg-card,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="card"] {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+  border:           2px solid var(--swiss-border, #000000) !important;
+  box-shadow:       none !important;
+  border-radius:    0px !important;
+}
+
+/* Card header — 2px bottom border as section divider */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="card-header"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .card-header {
+  border-bottom: 2px solid var(--swiss-border, #000000) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 10. BADGES                                                                   */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="badge"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .badge {
+  border:         1px solid currentColor !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  font-weight:    700 !important;
+  font-size:      0.65rem !important;
+  box-shadow:     none !important;
+  border-radius:  0px !important;
+}
+
+/* Status badge color conventions:
+   - Black outline + muted bg = inactive/default
+   - Swiss Red outline + red-tinted bg = error/critical
+   - Dark green outline = success/active (only where green is already in use) */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="badge"][data-variant="destructive"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .badge-destructive {
+  background-color: color-mix(in srgb, var(--swiss-accent, #FF3000) 10%, #FFFFFF) !important;
+  color:            var(--swiss-accent, #FF3000) !important;
+  border-color:     var(--swiss-accent, #FF3000) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="badge"][data-variant="success"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .badge-success {
+  background-color: color-mix(in srgb, #1A7A1A 10%, #FFFFFF) !important;
+  color:            #1A7A1A !important;
+  border-color:     #1A7A1A !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 11. TABS                                                                     */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="tablist"] {
+  background-color: transparent !important;
+  border-bottom:    2px solid var(--swiss-border, #000000) !important;
+  box-shadow:       none !important;
+  border-radius:    0px !important;
+  gap:              0 !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="tab"] {
+  border-radius: 0px !important;
+  box-shadow:    none !important;
+  text-transform: uppercase !important;
+  font-weight:    700 !important;
+  letter-spacing: 0.07em !important;
+  font-size:      0.75rem !important;
+  border-bottom:  3px solid transparent !important;
+  background-color: transparent !important;
+  transition:     border-color 120ms ease-out, background-color 120ms ease-out !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="tab"]:hover {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="tab"][data-state="active"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="tab"][aria-selected="true"] {
+  background-color: transparent !important;
+  border-bottom:    3px solid var(--swiss-accent, #FF3000) !important;
+  color:            var(--swiss-fg, #000000) !important;
+  box-shadow:       none !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 12. DATA TABLES                                                              */
+/*    Keep dense and legible — NOT uppercase — 2px black borders.            */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) table {
+  border-collapse: collapse !important;
+  border:          2px solid var(--swiss-border, #000000) !important;
+  border-radius:   0px !important;
+  box-shadow:      none !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) th,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) td {
+  border:       1px solid rgba(0, 0, 0, 0.15) !important;
+  box-shadow:   none !important;
+  padding:      0.5rem 0.75rem !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) thead,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) thead tr {
+  border-bottom: 2px solid var(--swiss-border, #000000) !important;
+  background:    var(--swiss-muted, #F2F2F2) !important;
+}
+
+/* Column headers: uppercase, bold, small */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) th {
+  text-transform: uppercase !important;
+  font-weight:    700 !important;
+  letter-spacing: 0.06em !important;
+  font-size:      0.7rem !important;
+}
+
+/* Table row hover: muted tint only (no shadow) */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) tbody tr:hover {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 13. DIVIDERS / SEPARATORS                                                    */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) hr,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="separator"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .separator {
+  border-color:     rgba(0, 0, 0, 0.2) !important;
+  border-top-width: 1px !important;
+  opacity:          1 !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 14. POPOVERS / DROPDOWNS / SELECTS                                          */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="listbox"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="menu"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-radix-popper-content-wrapper] > *,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="popover-content"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .popover-content {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+  border:           2px solid var(--swiss-border, #000000) !important;
+  box-shadow:       none !important;
+  border-radius:    0px !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="option"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="menuitem"] {
+  border-radius: 0px !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="option"]:hover,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="menuitem"]:hover,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="option"][data-highlighted],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="menuitem"][data-highlighted] {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+  box-shadow:       none !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="option"][aria-selected="true"] {
+  background-color: var(--swiss-accent, #FF3000) !important;
+  color:            #FFFFFF !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 15. DIALOGS / MODALS                                                         */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="dialog"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="dialog-content"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="alert-dialog-content"] {
+  background-color: var(--swiss-bg, #FFFFFF) !important;
+  border:           2px solid var(--swiss-border, #000000) !important;
+  box-shadow:       none !important;
+  border-radius:    0px !important;
+}
+
+/* Dialog header line */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="dialog-header"] {
+  border-bottom: 2px solid var(--swiss-border, #000000) !important;
+}
+
+/* Dialog overlay: semi-transparent black instead of blur */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="dialog-overlay"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-radix-dialog-overlay] {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter:  none !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 16. SCROLLBARS — Minimal, Flat                                              */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) ::-webkit-scrollbar {
+  width:  5px;
+  height: 5px;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) ::-webkit-scrollbar-track {
+  background: var(--swiss-muted, #F2F2F2);
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) ::-webkit-scrollbar-thumb {
+  background:    var(--swiss-fg, #000000);
+  border-radius: 0px;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) ::-webkit-scrollbar-thumb:hover {
+  background: var(--swiss-accent, #FF3000);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 17. CHECKBOXES / RADIO                                                       */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) input[type="checkbox"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) input[type="radio"] {
+  border:        2px solid var(--swiss-border, #000000) !important;
+  border-radius: 0px !important;
+  box-shadow:    none !important;
+  accent-color:  var(--swiss-accent, #FF3000);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 18. GATEWAY STATUS DOT — Swiss Red indicator instead of rounded LED         */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .rounded-full.h-1\.5.w-1\.5 {
+  border-radius: 0px !important;  /* Square LED dot */
+  width:         8px !important;
+  height:        8px !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 19. PROGRESS BARS                                                            */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="progressbar"] {
+  border-radius: 0px !important;
+  background:    var(--swiss-muted, #F2F2F2) !important;
+  box-shadow:    none !important;
+  border:        1px solid rgba(0,0,0,0.15) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="progressbar"] > * {
+  border-radius:    0px !important;
+  background-color: var(--swiss-accent, #FF3000) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 20. TOOLTIPS (non-sidebar)                                                   */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="tooltip"] {
+  background-color: var(--swiss-fg, #000000) !important;
+  color:            var(--swiss-bg, #FFFFFF) !important;
+  border-radius:    0px !important;
+  box-shadow:       none !important;
+  font-weight:      700 !important;
+  text-transform:   uppercase !important;
+  letter-spacing:   0.06em !important;
+  font-size:        0.65rem !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 21. PAGE HEADER CONVENTION (applied by pages in Phase 4)                    */
+/*     Utility classes that pages can use without knowing about Swiss          */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* .swiss-page-title — numbered prefix + uppercase bold, dashboard-scale      */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .swiss-page-title {
+  font-family:    var(--theme-font-display);
+  font-weight:    900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size:      clamp(1.4rem, 3vw, 2rem);   /* 22px–32px range */
+  line-height:    1.1;
+  color:          var(--swiss-fg, #000000);
+}
+
+/* .swiss-section-title — uppercase bold section header */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .swiss-section-title {
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size:      0.85rem;
+  color:          var(--swiss-fg, #000000);
+  border-bottom:  2px solid var(--swiss-border, #000000);
+  padding-bottom: 0.25rem;
+  margin-bottom:  0.75rem;
+}
+
+/* .swiss-label — data labels, column headers, badge text */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .swiss-label {
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size:      0.65rem;
+  color:          #555555;
+}
+
+/* .swiss-number — numbered section prefix (01. SESSIONS) */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .swiss-number {
+  font-weight:    400;
+  font-size:      0.75em;
+  letter-spacing: 0.02em;
+  color:          var(--swiss-accent, #FF3000);
+  margin-right:   0.35em;
+}
+
+/* .swiss-rule — full-width 2px divider bar */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .swiss-rule {
+  border:        none;
+  border-top:    2px solid var(--swiss-border, #000000);
+  margin-top:    0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* .swiss-accent-rule — 3px Swiss Red rule for emphasis */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .swiss-accent-rule {
+  border:        none;
+  border-top:    3px solid var(--swiss-accent, #FF3000);
+  margin-top:    0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 22. CHAT PAGE — Terminal Wrapper                                            */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .hermes-chat-xterm-host {
+  border-radius: 0px !important;
+}
+
+/* Chat warning/reconnect banner — Swiss Red left accent */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-chat-active="true"] .border-warning\/50 {
+  border-left:   3px solid var(--swiss-accent, #FF3000) !important;
+  border-top:    none !important;
+  border-right:  none !important;
+  border-bottom: none !important;
+  background-color: rgba(255, 48, 0, 0.05) !important;
+  color:         var(--swiss-accent, #FF3000) !important;
+}
+
+/* Copy-last button on terminal — keep minimal flat styling in the dark pane */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-chat-active="true"] button.bg-black\/20 {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  border:           1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius:    0px !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 23. FONT REMAPPING — Mondwest → Inter                                       */
+/*     @nous-research/ui ships "Mondwest" as a display font (.font-mondwest). */
+/*     In the Swiss theme all type uses Inter.                                 */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .font-mondwest {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .font-mono-ui {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 24. SESSIONS PAGE — Specific Overrides                                      */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Search highlight marks — amber → Swiss Red wash */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) mark.bg-warning\/30 {
+  background-color: color-mix(in srgb, var(--swiss-accent, #FF3000) 15%, #FFFFFF) !important;
+  color:            var(--swiss-accent, #FF3000) !important;
+  font-weight:      700;
+  padding:          0 2px;
+}
+
+/* Active session border: green → Swiss Red */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .border-success\/30 {
+  border-color: rgba(255, 48, 0, 0.3) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .bg-success\/\[0\.03\] {
+  background-color: rgba(255, 48, 0, 0.03) !important;
+}
+
+/* Selected row */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .border-primary\/40 {
+  border-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .bg-primary\/\[0\.06\] {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+}
+
+/* Live badge pulse dot — square in Swiss */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) span.inline-block.animate-pulse.rounded-full {
+  border-radius: 0px !important;
+  width:         6px !important;
+  height:        6px !important;
+}
+
+/* Source filter dropdown — flat */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .shadow-lg {
+  box-shadow: none !important;
+  border: 2px solid var(--swiss-border, #000000) !important;
+}
+
+/* Bulk action bar selected count text */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-primary.tabular-nums {
+  color:       var(--swiss-fg, #000000) !important;
+  font-weight: 700 !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 25. TOOL CALL BLOCKS                                                        */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .border-warning\/20 {
+  border-color: rgba(153, 102, 0, 0.3) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .bg-warning\/5 {
+  background-color: rgba(153, 102, 0, 0.04) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-warning {
+  color: #7A5200 !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-warning\/80 {
+  color: rgba(122, 82, 0, 0.85) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .bg-warning\/30 {
+  background-color: rgba(153, 102, 0, 0.15) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .hover\:bg-warning\/10:hover {
+  background-color: rgba(153, 102, 0, 0.08) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 26. SPINNER                                                                 */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .text-primary {
+  color: var(--swiss-fg, #000000) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 27. SWITCH / TOGGLE                                                         */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="switch"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="switch"] {
+  border-radius: 0px !important;
+  box-shadow:    none !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="switch"][data-state="checked"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="switch"][data-state="checked"] {
+  background-color: var(--swiss-accent, #FF3000) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [role="switch"] > *,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="switch"] > * {
+  border-radius: 0px !important;
+  box-shadow:    none !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 28. CODE BLOCKS / PRE (Logs, Config, Skills pages)                         */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) pre,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) code:not([class*="language-"]) {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+  border:           1px solid rgba(0, 0, 0, 0.15) !important;
+  border-radius:    0px !important;
+  font-family:      "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+  color:            var(--swiss-fg, #000000) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) :not(pre) > code {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+  border:           1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius:    0px !important;
+  padding:          0.1em 0.3em !important;
+  font-size:        0.9em !important;
+  color:            var(--swiss-fg, #000000) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 29. SEGMENTED CONTROL                                                       */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="segmented"] {
+  background-color: var(--swiss-muted, #F2F2F2) !important;
+  border:           2px solid var(--swiss-border, #000000) !important;
+  border-radius:    0px !important;
+  box-shadow:       none !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="segmented"] [data-state="active"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="segmented"] [aria-pressed="true"],
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) [data-slot="segmented"] [data-selected="true"] {
+  background-color: var(--swiss-fg, #000000) !important;
+  color:            var(--swiss-bg, #FFFFFF) !important;
+  border-radius:    0px !important;
+  box-shadow:       none !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 30. ANALYTICS CHARTS (series colors flow via swissTheme.seriesColors)      */
+/*     No structural CSS needed — red/black are set as data tokens.           */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Recharts grid lines — subtle in Swiss */
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .recharts-cartesian-grid line {
+  stroke: rgba(0, 0, 0, 0.08) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .recharts-cartesian-axis-line,
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .recharts-cartesian-axis-tick-line {
+  stroke: var(--swiss-border, #000000) !important;
+}
+
+:is([data-theme-name="swiss"], [data-theme-name="default"], [data-theme-name="default-large"]) .recharts-cartesian-axis-tick text {
+  fill:        #555555 !important;
+  font-size:   0.65rem !important;
+  font-weight: 600 !important;
+}
+

@@ -1,0 +1,194 @@
+MRPL FINANCIAL RECORDS — DEMO DATASET
+Mangalore Refinery and Petrochemicals Limited (MRPL)
+Period: FY2022-23 to FY2024-25
+Purpose: Test INDRA's document-analysis, PDF, PPT, Excel and reporting workflows.
+
+IMPORTANT: This is a compact extraction of selected public MRPL financial disclosures,
+not a complete statutory financial statement. Monetary values are INR Crore unless stated.
+FY means financial year ending 31 March.
+
+1. COMPANY PROFILE
+Company: Mangalore Refinery and Petrochemicals Limited
+Business: Crude-oil refining and marketing of petroleum/petrochemical products
+Parent: Oil and Natural Gas Corporation Limited (ONGC)
+ONGC shareholding: 71.63%
+Location: Mangaluru, Karnataka
+Listed on: BSE and NSE
+
+2. KEY FINANCIAL PERFORMANCE — STANDALONE
+Metric                              FY2022-23   FY2023-24   FY2024-25
+Revenue from Operations             124686      105223      109277
+Other Income                         —            1926        1757
+Total Income                         —          105416      109453
+EBITDA                              —             7893        2469
+Profit Before Tax                    —             5521         113
+Profit After Tax                     2638         3596          51
+Total Comprehensive Income           —            3591          32
+Gross Refining Margin (US$/bbl)      9.88        10.36        4.45
+Throughput (MMT)                    17.12        16.59       18.18
+Exports (INR Crore)                  —           32519       36466
+
+3. PROFIT & LOSS — STANDALONE
+Particulars                         FY2024-25   FY2023-24
+Revenue from Operations             109277.49   105223.28
+Other Income                           175.71      192.61
+Total Income                         109453.20   105415.89
+Cost of Materials Consumed            89627.21    80790.58
+Purchases of Stock-in-Trade             10.50        4.78
+Change in Inventories                  -415.28    -1075.49
+Excise Duty                           14595.87    14816.60
+Employee Benefits Expense               700.25      772.06
+Finance Costs                          1008.25     1113.85
+Depreciation & Amortisation            1347.02     1257.29
+Other Expenses                         2466.12     2206.53
+Total Expenses                       109339.93    99886.18
+Profit Before Exceptional Items & Tax   113.26     5529.70
+Exceptional Items                         0.00        8.29
+Profit Before Tax                      113.26     5521.41
+Tax Expense                             62.68     1925.48
+Profit After Tax                        50.58     3595.94
+Other Comprehensive Income             -19.07       -5.03
+Total Comprehensive Income              31.51     3590.91
+Basic EPS (INR)                          0.29       20.52
+Diluted EPS (INR)                        0.29       20.52
+
+4. BALANCE SHEET SNAPSHOT — STANDALONE
+Particulars                         FY2024-25   FY2023-24
+Property, Plant & Equipment          18963.95    19303.03
+Right-of-Use Assets                    721.96      718.85
+Capital Work-in-Progress               720.18      721.41
+Goodwill                               377.28      377.28
+Other Intangible Assets                 24.43        2.97
+Investment in Joint Venture             15.00       15.00
+Other Investments                        4.37        2.30
+Loans                                  182.82      147.78
+Other Financial Assets                 121.25      104.69
+Income Tax Assets                      203.23      200.06
+Deferred Tax Assets                    236.04      284.53
+Other Non-Current Assets               846.39      763.09
+TOTAL NON-CURRENT ASSETS             22433.44    22671.24
+Inventories                           7720.18     8306.03
+Trade Receivables                     3511.02     3860.14
+Cash & Cash Equivalents                 10.10        9.73
+Other Bank Balances                     21.29       28.88
+Current Loans                           27.11       25.16
+Other Current Financial Assets          95.34        2.91
+Other Current Assets                   580.51      485.06
+TOTAL CURRENT ASSETS                11965.55    12727.77
+TOTAL ASSETS                         34399.00    35399.01
+Equity Share Capital                  1752.66     1752.66
+Other Equity                         11181.12    11498.82
+TOTAL EQUITY                        12933.78    13251.49
+Non-Current Borrowings               8228.97     8921.08
+Current Borrowings                   4637.64     3530.66
+Lease Liabilities                     276.78     235.29
+Trade Payables                       5814.66     7203.60
+Other Financial Liabilities           845.53      811.89
+Other Current Liabilities             575.86      490.53
+Provisions                            601.68      420.40
+TOTAL LIABILITIES                   21465.22    22147.52
+TOTAL EQUITY + LIABILITIES          34399.00    35399.01
+
+5. CASH FLOW SNAPSHOT — STANDALONE
+Metric                              FY2024-25   FY2023-24
+Net Cash from Operations              1877.90     7050.78
+PPE & Intangible Asset Payments      -990.29    -1556.04
+Net Cash from Investing              -939.61    -1523.62
+Net Cash from Financing              -937.92    -5524.24
+Net Change in Cash                     3.71        29.27
+Closing Cash & Equivalents            10.10         9.73
+
+FY2024-25 financing details:
+Long-term borrowing proceeds: 293.98
+Long-term borrowing repayments: -757.18
+Net short-term borrowing proceeds: 837.00
+Finance costs paid: -931.32
+Dividend paid: -350.52
+
+6. CAPITAL EXPENDITURE
+Year        Refining Capex   Marketing Capex   Total Capex
+FY2021-22      660.79            13.46            674.25
+FY2022-23      588.37            36.82            625.19
+FY2023-24     1560.66            38.86           1599.52
+FY2024-25         —                —             1156.18
+
+7. FINANCIAL RATIOS
+Ratio / Indicator                    FY2021-22   FY2022-23   FY2023-24   FY2024-25
+Current Ratio                           0.86        0.99         —           —
+Debt-Equity Ratio                       2.93        1.70        0.94        0.99*
+Debtor Turnover (times)                25.39       28.35         —           —
+Inventory Turnover (times)              9.79       14.45         —           —
+Interest Service Coverage               4.14        5.22         —           —
+Operating Profit Margin (%)             5.51        4.88         —           —
+Net Profit Margin (%)                   4.24        2.42         —           —
+Return on Net Worth (%)                41.11       26.82         —           —
+
+* FY2024-25 annual-report capital-structure disclosure gives net-debt/equity
+  of approximately 0.99, compared with 0.94 in FY2023-24.
+
+8. OPERATING / COMMERCIAL METRICS
+Metric                              FY2023-24   FY2024-25
+Gross crude throughput (MMT)           16.59       18.18
+Distillate yield (%)                   78.79       81.93
+GRM (US$/bbl)                          10.36        4.45
+ATF production (MMT)                    2.09        2.72
+Reformate + 95 RON MS (MMT)             0.83        1.20
+Benzene production (MMT)                0.13        0.21
+Direct domestic sales volume (MMT)      2.60         —
+Direct domestic sales value (INR Cr) 15408          —
+Polypropylene sales (TMT)               384          —
+Retail outlets at year end              101         167
+Exports (INR Cr)                      32519       36466
+
+FY2024-25 operational highlights:
+- Highest-ever gross crude throughput: 18.18 MMT.
+- Highest-ever distillate yield: 81.93%.
+- New Bitumen train and PFCC Wet Gas Scrubber projects commissioned.
+- Devangonthi Marketing Terminal commissioned.
+- 66 new retail outlets were commissioned, taking total to 167.
+- New varieties of crude were processed during the year.
+
+9. Q4 COMPARISON
+Metric                              Q4 FY2024-25  Q4 FY2023-24
+Revenue from Operations                 27601        29190
+EBITDA                                  1168         2361
+Profit Before Tax                        584         1766
+Profit After Tax                         363         1137
+GRM (US$/bbl)                           6.23        11.35
+Throughput (MMT)                        4.64         4.60
+Exports (INR Crore)                    11378         9116
+
+10. SELECTED CONSOLIDATED DATA
+PAT attributable to owners:
+FY2023-24: 3597 crore
+FY2024-25: 56 crore
+Total comprehensive income attributable to owners:
+FY2023-24: 3592 crore
+FY2024-25: 36 crore
+
+11. READY-TO-ANALYZE QUESTIONS FOR INDRA
+- Analyze MRPL's financial performance from FY2022-23 to FY2024-25.
+- Compare FY2023-24 and FY2024-25 revenue, EBITDA, PBT, PAT and GRM.
+- Explain why profit fell despite record refinery throughput.
+- Create an Excel dashboard for Revenue, EBITDA, PAT, GRM and Throughput.
+- Create a 6-slide management presentation on MRPL's financial performance.
+- Create a professional PDF report with trends, cash flow, ratios and risks.
+- Calculate YoY changes in revenue, EBITDA, PAT, GRM and throughput.
+- Identify the top three financial risks visible in FY2024-25.
+- Create charts for Revenue vs PAT, GRM vs PAT, Throughput vs GRM and Capex.
+- Summarize the balance-sheet and debt position.
+- Generate a CFO-style one-page financial briefing.
+
+12. SOURCE / DATA PROVENANCE
+Primary sources:
+1. MRPL Annual Report 2024-25 — audited standalone financial statements.
+2. MRPL Annual Report 2023-24.
+3. MRPL FY2024-25 audited financial-results press release.
+4. MRPL public disclosure on capital expenditure.
+5. MRPL FY2022-23 annual-report disclosures for selected ratios and PAT/GRM.
+
+A dash (—) means the metric was not included in this compact dataset; it does NOT mean zero.
+Figures originally reported in INR million have been converted to INR crore by dividing by 10.
+Small differences can occur because of rounding/presentation.
+
+END OF DATASET
