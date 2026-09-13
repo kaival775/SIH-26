@@ -1082,12 +1082,55 @@ def _run_system_player(cmd: List[str]) -> bool:
     return False
 
 
+class _MciPlayerProc:
+    def __init__(self, alias: str):
+        self.alias = alias
+        self._terminated = False
+    def poll(self):
+        return 0 if self._terminated else None
+    def terminate(self):
+        self._terminated = True
+        try:
+            import ctypes
+            ctypes.windll.winmm.mciSendStringW(f'close {self.alias}', None, 0, None)
+        except Exception:
+            pass
+    def kill(self):
+        self.terminate()
+    def wait(self, timeout=None):
+        pass
+
+def _play_mp3_windows(file_path: str) -> bool:
+    if platform.system() != "Windows" or not file_path.lower().endswith(".mp3"):
+        return False
+    try:
+        import ctypes
+        import uuid
+        alias = f"mp3_{uuid.uuid4().hex}"
+        mci = ctypes.windll.winmm.mciSendStringW
+        err = mci(f'open "{file_path}" alias {alias}', None, 0, None)
+        if err != 0:
+            return False
+        proc = _MciPlayerProc(alias)
+        _set_active_playback(proc)
+        try:
+            mci(f'play {alias} wait', None, 0, None)
+        finally:
+            proc.terminate()
+            _set_active_playback(None)
+        return True
+    except Exception as e:
+        logger.debug("Windows MCI playback failed: %s", e)
+        return False
+
 def _play_audio_file_impl(file_path: str) -> bool:
     if not os.path.isfile(file_path):
         logger.warning("Audio file not found: %s", file_path)
         return False
     # macOS skips sounddevice output (TCC media-library prompt); afplay handles all formats.
     if file_path.endswith(".wav") and _sounddevice_output_allowed() and _play_wav_via_sounddevice(file_path):
+        return True
+    if _play_mp3_windows(file_path):
         return True
     for cmd in _system_player_candidates(file_path):
         if shutil.which(cmd[0]) and _run_system_player(cmd):

@@ -6,7 +6,7 @@ Single command to start the entire INDRA ecosystem.
 This script will:
 1. Auto-configure the model settings based on the GGUFs in the models folder.
 2. Start the backend services (llama-swap and workbench) using start-backend.ps1.
-3. Launch the frontend indra CLI.
+3. Launch the frontend indra dashboard and open the browser.
 #>
 
 $ErrorActionPreference = 'Stop'
@@ -33,10 +33,12 @@ Write-Host "`n[2/3] Starting Backend Services (llama-swap and workbench)..." -Fo
 
 Write-Host "Services are UP!" -ForegroundColor Green
 
-# 3. Launch CLI
-Write-Host "`n[3/3] Launching INDRA CLI..." -ForegroundColor Yellow
+# 3. Launch Dashboard
+Write-Host "`n[3/3] Launching INDRA Dashboard..." -ForegroundColor Yellow
 if (Test-Path "$rootDir\venv\Scripts\indra.exe") {
-    & "$rootDir\venv\Scripts\indra.exe" chat
+    Write-Host "Opening Dashboard in default browser..." -ForegroundColor Green
+    Start-Job -ScriptBlock { Start-Sleep -Seconds 3; Start-Process "http://127.0.0.1:9119" } | Out-Null
+    & "$rootDir\venv\Scripts\indra.exe" dashboard
 } else {
     Write-Host "Frontend CLI (indra.exe) not found in $rootDir\venv\Scripts." -ForegroundColor Red
     exit 1

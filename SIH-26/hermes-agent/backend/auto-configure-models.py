@@ -37,16 +37,16 @@ MMPROJ_PATTERN = re.compile(r"mmproj", re.IGNORECASE)
 # Known model profiles: maps a filename substring to tuned parameters
 # Format: (alias, ctx_size, batch_size, ubatch_size, predict, extra_flags)
 MODEL_PROFILES: dict[str, dict] = {
-    "qwen3.5-4b":       {"alias": "qwen3.5-4b",              "ctx": 16384, "batch": 256, "ubatch": 128, "predict": 2048, "extra": "--reasoning-budget 0 --reasoning off"},
-    "qwen_qwen3.5-4b":  {"alias": "qwen3.5-4b",              "ctx": 16384, "batch": 256, "ubatch": 128, "predict": 2048, "extra": "--reasoning-budget 0 --reasoning off"},
-    "gemma-2-2b":        {"alias": "gemma-2-2b-it",           "ctx": 16384, "batch": 256, "ubatch": 128, "predict": 1024, "extra": "--reasoning off"},
-    "hermes-3-llama":    {"alias": "hermes-3-llama-8b",       "ctx": 8192,  "batch": 128, "ubatch": 64,  "predict": 2048, "extra": "--reasoning off"},
-    "qwen2-vl-ocr":      {"alias": "qwen2-vl-ocr-2b-instruct","ctx": 16384, "batch": 128, "ubatch": 64,  "predict": 512,  "extra": "--reasoning off"},
-    "phi-4-mini":        {"alias": "phi-4-mini-instruct",     "ctx": 16384, "batch": 256, "ubatch": 128, "predict": 256,  "extra": "--reasoning off"},
+    "qwen3.5-4b":       {"alias": "qwen3.5-4b",              "ctx": 32768, "batch": 512, "ubatch": 256, "predict": 4096, "layers": 99, "extra": "--reasoning-budget 0 --reasoning off"},
+    "qwen_qwen3.5-4b":  {"alias": "qwen3.5-4b",              "ctx": 32768, "batch": 512, "ubatch": 256, "predict": 4096, "layers": 99, "extra": "--reasoning-budget 0 --reasoning off"},
+    "gemma-2-2b":        {"alias": "gemma-2-2b-it",           "ctx": 32768, "batch": 512, "ubatch": 256, "predict": 2048, "layers": 99, "extra": "--reasoning off"},
+    "hermes-3-llama":    {"alias": "hermes-3-llama-8b",       "ctx": 32768, "batch": 256, "ubatch": 128, "predict": 4096, "layers": 99, "extra": "--reasoning off"},
+    "qwen2-vl-ocr":      {"alias": "qwen2-vl-ocr-2b-instruct","ctx": 16384, "batch": 128, "ubatch": 64,  "predict": 512,  "layers": 99, "extra": "--reasoning off"},
+    "phi-4-mini":        {"alias": "phi-4-mini-instruct",     "ctx": 16384, "batch": 256, "ubatch": 128, "predict": 256,  "layers": 99, "extra": "--reasoning off"},
 }
 
 # Default profile for unknown models
-DEFAULT_PROFILE = {"ctx": 8192, "batch": 128, "ubatch": 64, "predict": 1024, "extra": "--reasoning off"}
+DEFAULT_PROFILE = {"ctx": 8192, "batch": 128, "ubatch": 64, "predict": 1024, "layers": 99, "extra": "--reasoning off"}
 
 
 def find_profile(filename: str) -> dict:
@@ -109,6 +109,7 @@ def scan_models() -> list[dict]:
             "batch": profile.get("batch", DEFAULT_PROFILE["batch"]),
             "ubatch": profile.get("ubatch", DEFAULT_PROFILE["ubatch"]),
             "predict": profile.get("predict", DEFAULT_PROFILE["predict"]),
+            "layers": profile.get("layers", DEFAULT_PROFILE["layers"]),
             "extra": profile.get("extra", DEFAULT_PROFILE["extra"]),
         }
         models.append(entry)
@@ -131,7 +132,7 @@ def generate_yaml(models: list[dict]) -> str:
             "--host 127.0.0.1 --port ${PORT}",
             f'--model "{m["path"]}"',
             f'--alias {m["alias"]}',
-            f'--n-gpu-layers 99 --ctx-size {m["ctx"]} --parallel 1',
+            f'--n-gpu-layers {m["layers"]} --ctx-size {m["ctx"]} --parallel 1',
             f'--batch-size {m["batch"]} --ubatch-size {m["ubatch"]} --threads 8',
             "--flash-attn on --cache-type-k q8_0 --cache-type-v q8_0",
         ]

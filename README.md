@@ -20,71 +20,27 @@ Indra operates seamlessly without internet access using built-in local tools:
 - **Dynamic Routing**: Automatically maps tasks to the best local model. For example, `indra-auto` (Qwen) handles tool execution and logic, while `indra-writer` (Gemma) or `indra-hermes` handles creative generation.
 - **Obsidian Vault Integration (Local RAG)**: Instead of a heavy vector database, Indra uses file-based retrieval. It natively navigates your `MyVault` folder, reads your markdown/PDF documents into its context window, and acts as a "Second Brain" to answer questions based strictly on your private data.
 
----
+## 2. One-Click Installation (Judges/Hackathon Mode)
 
-## 2. Prerequisites: Binaries & Model Files
+We have engineered a fully automated installer that will set up the entire ecosystem, download the required offline LLMs, embed the API keys, and configure the environment without any manual intervention.
 
-Before installing, you must place the backend engine and local LLM weights into the correct directories.
-
-### A. The Backend Engine (`bin`)
-Download the Llama-Swap engine executable (`llama-swap.exe` for Windows) and place it in the backend binary folder:
-`C:\Users\khatr\OneDrive\Desktop\indra\SIH-26\hermes-agent\backend\bin\`
-
-### B. The LLM Models (`.gguf`)
-Download your preferred models (in `.gguf` format) from HuggingFace. Recommended models:
-- **Qwen (indra-auto)**: `qwen2.5-7b-instruct-q4_k_m.gguf` (Excellent at tool calling).
-- **Hermes (indra-hermes)**: `hermes-3-llama-8b.gguf`
-- **Gemma (indra-writer)**: `gemma-2-2b-it.gguf`
-
-Place all `.gguf` files into the models folder:
-`C:\Users\khatr\OneDrive\Desktop\indra\SIH-26\hermes-agent\backend\models\`
-
-### C. Vision Language Models (VLMs)
-If you want local image analysis (the `vision` tool), you must download the vision projector file for your model. For example, if using Qwen2-VL, download the `mmproj-model-f16.gguf` projector.
-Place the projector file in the **exact same directory** as your models:
-`C:\Users\khatr\OneDrive\Desktop\indra\SIH-26\hermes-agent\backend\models\`
+1. **Extract the ZIP file** to your Desktop (or any preferred location).
+2. Right-click `install-indra.ps1` and select **Run with PowerShell**.
+   *(Note: This wizard will automatically download the required GGUF models directly from HuggingFace to bypass GitHub file size limits, verify their SHA-256 signatures, and create an Immutable Audit Log).*
+3. Once complete, a shortcut named **INDRA Dashboard** will be placed on your Desktop.
 
 ---
 
-## 3. Installation (Local Build)
+## 3. Launching Indra
 
-You must install the CLI directly from source to apply our custom `SOUL.md` prompt injections and branding.
+Simply double-click the **INDRA Dashboard** shortcut on your Desktop.
 
-1. Open PowerShell as Administrator.
-2. Navigate to the frontend project root:
-   ```powershell
-   cd C:\Users\khatr\OneDrive\Desktop\indra\SIH-26\hermes-agent
-   ```
-3. Install the package in editable mode:
-   ```powershell
-   pip install -e .
-   ```
+This will automatically:
+1. Auto-configure the model routing matrix.
+2. Spin up the backend Llama-Swap engine and AI Workbench.
+3. Open the Indra Dashboard in your default web browser (`http://127.0.0.1:9119`).
 
----
-
-## 4. Easy Configuration
-
-### Environment Variables
-Open (or create) the `C:\Users\khatr\OneDrive\Desktop\indra\.env` file and set your API key and Vault path:
-```env
-WORKBENCH_API_KEY=wb_live_1234567890abcdef1234567890abcdef
-TERMINAL_ENV=local
-OBSIDIAN_VAULT_PATH=C:\Users\khatr\OneDrive\Desktop\indra\MyVault
-```
-*(Make sure an empty folder named `MyVault` actually exists in your `indra` directory!)*
-
-### Start the Backend
-From the main `indra` directory, run our custom startup script. This script automatically scans your `models/` directory, writes the `llama-swap.yaml` configuration, and boots both the AI Workbench and the Llama-Swap engine.
-```powershell
-.\start-indra.ps1
-```
-
-### Register Models
-If the UI says "No models registered", open a new PowerShell tab, navigate to the backend, and inject the models into the local SQLite database:
-```powershell
-cd C:\Users\khatr\OneDrive\Desktop\indra\SIH-26\hermes-agent\backend
-.\venv\Scripts\python.exe register_models.py
-```
+*Note: The first launch may take ~10 seconds for the backend services to fully initialize.*
 
 ---
 
